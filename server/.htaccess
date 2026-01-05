@@ -1,0 +1,27 @@
+# Protect uploaded images from direct access
+# Only allow access through the upload script
+
+<FilesMatch "\.(png|jpg|jpeg|json|txt)$">
+    # Deny direct access to image files
+    # You can allow specific IPs or require authentication if needed
+    Order Deny,Allow
+    Deny from all
+    # Uncomment to allow specific IP addresses
+    # Allow from 192.168.1.1
+</FilesMatch>
+
+# Allow the PHP script to run
+<FilesMatch "upload\.php$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Disable directory browsing
+Options -Indexes
+
+# Optional: Add basic authentication
+# Uncomment these lines to require password
+# AuthType Basic
+# AuthName "Restricted Access"
+# AuthUserFile /path/to/.htpasswd
+# Require valid-user

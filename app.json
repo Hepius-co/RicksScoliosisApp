@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "scoliosis-app",
-    "slug": "scoliosis-app",
+    "name": "Rick'S",
+    "slug": "ricks-scoliosis",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,20 +10,40 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00b5e2"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Rick'S needs camera access to take photos of spine X-rays for Cobb angle measurement.",
+        "NSPhotoLibraryUsageDescription": "Rick'S needs photo library access to save X-ray images with measurements."
+      },
+      "bundleIdentifier": "com.ricks.scoliosis"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#00b5e2"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES"
+      ],
+      "package": "com.ricks.scoliosis"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Rick'S to access your camera to photograph spine X-rays."
+        }
+      ]
+    ]
   }
 }
