@@ -35,7 +35,9 @@
       "package": "com.ricks.scoliosis"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "basePath": "/RS"
     },
     "plugins": [
       [
