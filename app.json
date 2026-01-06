@@ -16,7 +16,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Rick'S needs camera access to take photos of spine X-rays for Cobb angle measurement.",
-        "NSPhotoLibraryUsageDescription": "Rick'S needs photo library access to save X-ray images with measurements."
+        "NSPhotoLibraryUsageDescription": "Rick'S needs photo library access to save X-ray images with measurements.",
+        "ITSAppUsesNonExemptEncryption": false
       },
       "bundleIdentifier": "com.ricks.scoliosis"
     },
@@ -30,7 +31,9 @@
         "CAMERA",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
-        "READ_MEDIA_IMAGES"
+        "READ_MEDIA_IMAGES",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ],
       "package": "com.ricks.scoliosis"
     },
@@ -46,6 +49,11 @@
           "cameraPermission": "Allow Rick'S to access your camera to photograph spine X-rays."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a8d12e9f-503f-4e44-9f77-bfed1bd37714"
+      }
+    }
   }
 }
