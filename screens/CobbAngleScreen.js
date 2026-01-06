@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Alert, ScrollView, PanResponder, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Alert, ScrollView, PanResponder, Image, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Slider from '@react-native-community/slider';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
@@ -12,6 +13,7 @@ const { width, height } = Dimensions.get('window');
 const IMAGE_HEIGHT = Math.min(350, height * 0.45);
 
 export default function CobbAngleScreen() {
+  const isWebPlatform = Platform.OS === 'web';
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
   const [mediaPermission, requestMediaPermission] = MediaLibrary.usePermissions();
   const [capturedImage, setCapturedImage] = useState(null);
@@ -233,6 +235,48 @@ export default function CobbAngleScreen() {
           </TouchableOpacity>
         </CameraView>
       </View>
+    );
+  }
+
+  // Show web platform message
+  if (isWebPlatform) {
+    return (
+      <SafeAreaView style={styles.container} edges={['bottom']}>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <View style={styles.unavailableContainer}>
+            <Text style={styles.unavailableTitle}>📐 Cobb Angle Measurement</Text>
+            <Text style={styles.unavailableSubtitle}>Camera not available on web</Text>
+            <View style={styles.unavailableBox}>
+              <Text style={styles.unavailableText}>
+                The Cobb Angle measurement tool requires camera access, which is only available in the native mobile apps.
+              </Text>
+              <Text style={[styles.unavailableText, { marginTop: 20 }]}>
+                📱 To use this feature, please download the Rick'S mobile app:
+              </Text>
+              <Text style={styles.unavailableList}>
+                • iOS app (coming soon){'\n'}
+                • Android app (coming soon)
+              </Text>
+            </View>
+            <View style={styles.instructions}>
+              <Text style={styles.instructionTitle}>About Cobb Angle Measurement:</Text>
+              <Text style={styles.instructionText}>
+                The Cobb angle is the gold standard for measuring scoliosis severity from X-ray images.{'\n\n'}
+                <Text style={{ fontWeight: 'bold' }}>How it works in the mobile app:</Text>{'\n'}
+                1. Take or upload an X-ray image{'\n'}
+                2. Draw lines along vertebral endplates{'\n'}
+                3. App calculates the angle automatically{'\n'}
+                4. Get instant interpretation{'\n\n'}
+                <Text style={{ fontWeight: 'bold' }}>Interpretation:</Text>{'\n'}
+                • 0-10°: Normal{'\n'}
+                • 10-25°: Mild scoliosis{'\n'}
+                • 25-40°: Moderate scoliosis{'\n'}
+                • ≥40°: Severe scoliosis
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 
@@ -685,5 +729,41 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 28,
     fontWeight: 'bold',
+  },
+  unavailableContainer: {
+    padding: 20,
+  },
+  unavailableTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#00b5e2',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  unavailableSubtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  unavailableBox: {
+    backgroundColor: '#fff3e0',
+    padding: 20,
+    borderRadius: 12,
+    borderLeftWidth: 4,
+    borderLeftColor: '#FF9800',
+    marginBottom: 20,
+  },
+  unavailableText: {
+    fontSize: 15,
+    color: '#333',
+    lineHeight: 22,
+  },
+  unavailableList: {
+    fontSize: 15,
+    color: '#333',
+    lineHeight: 24,
+    marginTop: 10,
+    marginLeft: 10,
   },
 });

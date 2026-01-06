@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { DeviceMotion } from 'expo-sensors';
 
@@ -10,24 +10,49 @@ export default function ScoliometerScreen() {
   const [subscription, setSubscription] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const [frozenAngle, setFrozenAngle] = useState(0);
+  const [isWebPlatform] = useState(Platform.OS === 'web');
+  const [sensorAvailable, setSensorAvailable] = useState(true);
 
   useEffect(() => {
-    DeviceMotion.setUpdateInterval(100);
+    // Skip sensor setup on web
+    if (isWebPlatform) {
+      setSensorAvailable(false);
+      return;
+    }
 
-    const sub = DeviceMotion.addListener((data) => {
-      if (data.rotation && !isPaused) {
-        // Calculate roll angle in degrees
-        const roll = data.rotation.beta * (180 / Math.PI);
-        setAngle(Math.abs(roll));
+    // Check if DeviceMotion is available
+    DeviceMotion.isAvailableAsync().then((available) => {
+      if (!available) {
+        setSensorAvailable(false);
+        return;
       }
+
+      try {
+        DeviceMotion.setUpdateInterval(100);
+
+        const sub = DeviceMotion.addListener((data) => {
+          if (data.rotation && !isPaused) {
+            // Calculate roll angle in degrees
+            const roll = data.rotation.beta * (180 / Math.PI);
+            setAngle(Math.abs(roll));
+          }
+        });
+
+        setSubscription(sub);
+      } catch (error) {
+        console.log('DeviceMotion error:', error);
+        setSensorAvailable(false);
+      }
+    }).catch(() => {
+      setSensorAvailable(false);
     });
 
-    setSubscription(sub);
-
     return () => {
-      sub && sub.remove();
+      if (subscription && subscription.remove) {
+        subscription.remove();
+      }
     };
-  }, [isPaused]);
+  }, [isPaused, isWebPlatform]);
 
   const togglePause = () => {
     if (!isPaused) {
@@ -43,6 +68,42 @@ export default function ScoliometerScreen() {
   };
 
   const displayAngle = isPaused ? frozenAngle : angle;
+
+  // Show message if sensors not available (web platform)
+  if (!sensorAvailable) {
+    return (
+      <SafeAreaView style={styles.container} edges={['bottom']}>
+        <View style={styles.unavailableContainer}>
+          <Text style={styles.unavailableTitle}>🧭 Scoliometer</Text>
+          <Text style={styles.unavailableSubtitle}>Device sensors not available</Text>
+          <View style={styles.unavailableBox}>
+            <Text style={styles.unavailableText}>
+              The Scoliometer requires device motion sensors that are only available in the native mobile apps.
+            </Text>
+            <Text style={[styles.unavailableText, { marginTop: 20 }]}>
+              📱 To use this feature, please download the Rick'S mobile app:
+            </Text>
+            <Text style={styles.unavailableList}>
+              • iOS app (coming soon){'\n'}
+              • Android app (coming soon)
+            </Text>
+          </View>
+          <View style={styles.instructions}>
+            <Text style={styles.instructionTitle}>About the Scoliometer:</Text>
+            <Text style={styles.instructionText}>
+              The Scoliometer measures trunk rotation angle by using your device's motion sensors.
+              It's a screening tool to detect potential scoliosis during forward bend tests.{'\n\n'}
+              <Text style={{ fontWeight: 'bold' }}>How it works in the mobile app:</Text>{'\n'}
+              1. Patient bends forward at the waist{'\n'}
+              2. Place phone horizontally on spine{'\n'}
+              3. Read trunk rotation angle{'\n'}
+              4. Angles ≥7° suggest referral for X-ray
+            </Text>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
@@ -256,5 +317,42 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  unavailableContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  unavailableTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#00b5e2',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  unavailableSubtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  unavailableBox: {
+    backgroundColor: '#fff3e0',
+    padding: 20,
+    borderRadius: 12,
+    borderLeftWidth: 4,
+    borderLeftColor: '#FF9800',
+    marginBottom: 20,
+  },
+  unavailableText: {
+    fontSize: 15,
+    color: '#333',
+    lineHeight: 22,
+  },
+  unavailableList: {
+    fontSize: 15,
+    color: '#333',
+    lineHeight: 24,
+    marginTop: 10,
+    marginLeft: 10,
   },
 });
