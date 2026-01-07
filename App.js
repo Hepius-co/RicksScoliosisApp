@@ -8,6 +8,7 @@ import { retryPendingUploads } from './utils/cloudStorage';
 // Import screens
 import ScoliometerScreen from './screens/ScoliometerScreen';
 import CobbAngleScreen from './screens/CobbAngleScreen';
+import EducationScreen from './screens/EducationScreen';
 import AboutAppScreen from './screens/AboutAppScreen';
 import AboutDrRickScreen from './screens/AboutDrRickScreen';
 
@@ -98,6 +99,17 @@ export default function App() {
               <TabIcon icon="📐" color={color} />
             ),
             headerTitle: "Rick'S Cobb Angle",
+          }}
+        />
+        <Tab.Screen
+          name="Education"
+          component={EducationScreen}
+          options={{
+            tabBarLabel: 'Education',
+            tabBarIcon: ({ color }) => (
+              <TabIcon icon="📖" color={color} />
+            ),
+            headerTitle: 'Scoliosis Education',
           }}
         />
         <Tab.Screen

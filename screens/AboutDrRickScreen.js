@@ -1,10 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
 
 export default function AboutDrRickScreen() {
+  const openRickHodesWebsite = () => {
+    Linking.openURL('https://rickhodes.org');
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
+        {/* Placeholder for Dr. Rick's Photo */}
+        <View style={styles.photoContainer}>
+          <View style={styles.photoPlaceholder}>
+            <Text style={styles.photoPlaceholderText}>Dr. Rick Hodes{'\n'}Photo Placeholder</Text>
+          </View>
+        </View>
+
         <Text style={styles.subtitle}>A Life of Compassion and Service</Text>
 
         <View style={styles.section}>
@@ -90,10 +101,15 @@ export default function AboutDrRickScreen() {
           </Text>
         </View>
 
+        <TouchableOpacity style={styles.linkButton} onPress={openRickHodesWebsite}>
+          <Text style={styles.linkButtonText}>🌐 Visit rickhodes.org</Text>
+          <Text style={styles.linkButtonSubtext}>Learn More and Support the Cause</Text>
+        </TouchableOpacity>
+
         <View style={styles.footer}>
           <Text style={styles.footerText}>
-            To learn more about Dr. Rick Hodes and his work,{'\n'}
-            search for "Dr. Rick Hodes Ethiopia" or "CNN Heroes Rick Hodes"
+            © 2025 Hepius.co{'\n'}
+            Contact: contact@hepius.co
           </Text>
         </View>
       </View>
@@ -193,5 +209,48 @@ const styles = StyleSheet.create({
     color: '#999',
     textAlign: 'center',
     lineHeight: 20,
+  },
+  photoContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  photoPlaceholder: {
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: '#E3F2FD',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 4,
+    borderColor: '#00b5e2',
+  },
+  photoPlaceholderText: {
+    fontSize: 14,
+    color: '#00b5e2',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  linkButton: {
+    backgroundColor: '#00b5e2',
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 20,
+    alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  linkButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 5,
+  },
+  linkButtonSubtext: {
+    fontSize: 13,
+    color: 'white',
+    opacity: 0.9,
   },
 });
