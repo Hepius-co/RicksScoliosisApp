@@ -9,12 +9,15 @@ export default function AboutDrRickScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        {/* Placeholder for Dr. Rick's Photo */}
+        {/* Dr. Rick's Photo - Square container */}
         <View style={styles.photoContainer}>
-          <View style={styles.photoPlaceholder}>
-            <Text style={styles.photoPlaceholderText}>Dr. Rick Hodes{'\n'}Photo Placeholder</Text>
-          </View>
+          <Image
+            source={require('../assets/dr-rick-photo.png')}
+            style={styles.photo}
+            resizeMode="cover"
+          />
         </View>
+
 
         <Text style={styles.subtitle}>A Life of Compassion and Service</Text>
 
@@ -211,24 +214,25 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   photoContainer: {
-    alignItems: 'center',
+    alignSelf: 'center',
+    width: '80%',
+    maxWidth: 300,
+    aspectRatio: 1,
     marginBottom: 20,
-  },
-  photoPlaceholder: {
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    backgroundColor: '#E3F2FD',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 4,
+    borderRadius: 12,
+    overflow: 'hidden',
+    borderWidth: 3,
     borderColor: '#00b5e2',
+    backgroundColor: '#E3F2FD',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
-  photoPlaceholderText: {
-    fontSize: 14,
-    color: '#00b5e2',
-    textAlign: 'center',
-    fontWeight: 'bold',
+  photo: {
+    width: '100%',
+    height: '100%',
   },
   linkButton: {
     backgroundColor: '#00b5e2',
