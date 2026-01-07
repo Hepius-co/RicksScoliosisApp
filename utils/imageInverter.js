@@ -1,4 +1,3 @@
-import { GLView } from 'expo-gl';
 import * as FileSystem from 'expo-file-system/legacy';
 
 /**

@@ -20,6 +20,12 @@
         "buildConfiguration": "Release"
       },
       "android": {
+        "buildType": "aab"
+      }
+    },
+    "production-apk": {
+      "autoIncrement": true,
+      "android": {
         "buildType": "apk"
       }
     }

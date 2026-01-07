@@ -35,7 +35,8 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.ricks.scoliosis"
+      "package": "com.ricks.scoliosis",
+      "jsEngine": "hermes"
     },
     "web": {
       "favicon": "./assets/favicon.png",
