@@ -241,7 +241,7 @@ export default function TermsConditionsModal({ visible, onClose }) {
           </Section>
 
           <Section title="7. Disclaimer of Warranties">
-            <SubSection title="7.1 "AS IS" Provision">
+            <SubSection title="7.1 AS IS Provision">
               <WarningBox>
                 THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR ACCURACY.
               </WarningBox>

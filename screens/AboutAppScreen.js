@@ -10,8 +10,6 @@ export default function AboutAppScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>About This App</Text>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Purpose</Text>
           <Text style={styles.text}>
@@ -20,40 +18,6 @@ export default function AboutAppScreen() {
             accessible, evidence-based tools.
           </Text>
         </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Features</Text>
-
-          <View style={styles.feature}>
-            <Text style={styles.featureTitle}>📱 Scoliometer</Text>
-            <Text style={styles.text}>
-              A digital inclinometer that measures the angle of trunk rotation (ATR) during
-              the Adams Forward Bend Test. This non-invasive screening tool helps identify
-              potential scoliosis cases that may require further evaluation.
-            </Text>
-            <Text style={styles.interpretation}>
-              • 0-5°: Normal range{'\n'}
-              • 5-7°: Mild rotation, monitor patient{'\n'}
-              • ≥7°: Significant rotation, consider referral
-            </Text>
-          </View>
-
-          <View style={styles.feature}>
-            <Text style={styles.featureTitle}>📐 Cobb Angle Measurement</Text>
-            <Text style={styles.text}>
-              A tool for measuring the Cobb angle directly from spine X-rays. Healthcare
-              providers can take a photo of an X-ray and use adjustable reference lines to
-              determine the degree of spinal curvature.
-            </Text>
-            <Text style={styles.interpretation}>
-              • &lt;10°: Normal variation{'\n'}
-              • 10-25°: Mild scoliosis{'\n'}
-              • 25-40°: Moderate scoliosis{'\n'}
-              • &gt;40°: Severe scoliosis
-            </Text>
-          </View>
-        </View>
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Who Can Benefit</Text>
           <Text style={styles.text}>
